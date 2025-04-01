@@ -31,7 +31,7 @@ This study examines how viewers watch videos by looking at:
 -Time spent on different content kinds.
 -Total and average watched time on different platforms.
 -Maximum, minimum, and average watched time.
-The purpose is to give insights into the user's viewing habits using summary statistics and bar charts.
+The purpose is to give insights into the users viewing habits using summary statistics and bar charts.
 
 ```{r, echo=FALSE, message=FALSE}
 library(tidyverse)
