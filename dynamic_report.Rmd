@@ -1,0 +1,107 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+h2 {
+  color: #4CAF50;
+  font-family: Arial, sans-serif;
+  margin-top: 22px;
+}
+p {
+  font-size: 15px;
+  color: #333;
+}
+.bar-chart-title {
+  color: #FF5733;
+  font-size: 18px;
+  font-weight: italic;
+}
+
+```
+
+## Analysis of Platform and Content Viewing Habits
+This study examines how viewers watch videos by looking at:
+-Time spent on different content kinds.
+-Total and average watched time on different platforms.
+-Maximum, minimum, and average watched time.
+The purpose is to give insights into the user's viewing habits using summary statistics and bar charts.
+
+```{r, echo=FALSE, message=FALSE}
+library(tidyverse)
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/1QiuHfekjrnlS0qQGK1x9eK89gwR_rvdpE-x3bVxPLBM/export?format=csv")
+
+latest_data <- logged_data %>%
+  rename(
+    watched_time = `Approximately how many hours did you spend watching videos on YouTube or TikTok today?`,
+    content = `What was the main type of content you watched today?`,
+    platform_used = `Which platform did you mainly use for watching videos today?`
+  )
+total_time_summary <- latest_data %>%
+  group_by(platform_used) %>%
+  summarise(
+    total_time = sum(watched_time, na.rm = TRUE)
+  )
+```
+
+```{r, echo=FALSE}
+# Calculate summary values
+max_time <- max(latest_data$watched_time, na.rm = TRUE)
+min_time <- min(latest_data$watched_time, na.rm = TRUE)
+mean_time <- mean(latest_data$watched_time, na.rm = TRUE)
+print(paste("Maximum watched time recorded is:", max_time, "hours"))
+print(paste("Minimum watched time recorded is:", min_time, "hours"))
+print(paste("Average watched time is:", round(mean_time, 2), "hours"))
+```
+
+```{r, echo=FALSE}
+# Bar chart summarizing total watched time by platform
+ggplot(total_time_summary, aes(x = platform_used, y = total_time, fill = platform_used)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Total Watched Time by Platform",
+    subtitle = "Distribution of total watched time by platform",
+    x = "Platform",
+    y = "Total Time (hours)"
+  ) +
+  theme_minimal()
+
+```
+
+
+```{r, echo=FALSE}
+# Calculate average watched time by platform
+avg_time <- latest_data %>%
+  group_by(platform_used) %>%
+  summarise(
+    avg_time = mean(watched_time, na.rm = TRUE)
+  )
+# Plot bar chart for average watched time by platform
+ggplot(avg_time,aes(x = platform_used, y = avg_time, fill = platform_used)) + 
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Average Watched Time by Platform",
+    subtitle = "Comparison of average watched time across different platforms",
+    x = "Platform",
+    y = "Average Watched Time (hours)"
+  ) +
+  theme_minimal()
+
+```
+You need to change the contents of this Rmd! Replace the R code and markdown give below in this template document.
+
+```{r}
+pets <- c("cat", "dog", "turtle", "rabbit")
+best_pet <- pets[1]
+
+```
+
+The best pet to have is a `r best_pet` of course!
+
+![](https://c.tenor.com/-qBsG1HwR4oAAAAC/tenor.gif)
