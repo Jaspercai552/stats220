@@ -1,0 +1,73 @@
+---
+title: "Observations from One Tree Hill: Dog Walkers and Activity Trends"
+output: html_document
+---
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+```
+
+```{js}
+$(function() {
+  $(".level2").css('visibility', 'hidden');
+  $(".level2").first().css('visibility', 'visible');
+  $(".container-fluid").height($(".container-fluid").height() + 300);
+  $(window).on('scroll', function() {
+    $('h2').each(function() {
+      var h2Top = $(this).offset().top - $(window).scrollTop();
+      var windowHeight = $(window).height();
+      if (h2Top >= 0 && h2Top <= windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'visible');
+      } else if (h2Top > windowHeight / 2) {
+        $(this).parent('div').css('visibility', 'hidden');
+      }
+    });
+  });
+})
+```
+
+```{css}
+.figcaption {display: none}
+body {
+  font-family: "Arial", sans-serif;
+}
+
+h1 {
+  color: #f0027f;
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+h2 {
+  color: #bf5b17;
+  margin-top: 20px;
+}
+```
+
+## Introduction
+I spent one afternoon at One Tree Hill observing the people visiting this public space.I took notes on what they were doing and if they had brought children or pets.This data reveals how tourists utilize the park and who they accompany.
+
+
+## Most Visitors to One Tree Hill are Singles or Small Teams
+I wanted to find out how many people usually visit One Tree Hill together.
+I used a geom_point plot to clearly display the distribution.The result shows that most visitors in the afternoon come alone or in small groups of two or three.Larger groups of more than five people are very rare.
+
+![Most people visit alone or in pairs](plot1.png)
+
+## Are Visitors Here to Walk Dogs?
+After summarising the group sizes,I wanted to explore how many people visit One Tree Hill with their dogs.I created a bar chart to show this.The results suggest that more people visit without dogs,but almost half of the visitors do bring their dogs for a walk.
+![Groups With and Without Dogs](plot2.png)
+
+
+## What did the early visitors do?
+Finally, I looked at the first five activities recorded during my observation.I used a bar chart to summarise these activities.It shows that running and sightseeing or picnicking were the most common activities,while dog walking combined with running was less frequent.
+
+![Visitors mainly engaged in running and sightseeing.](plot3.png)
+In this experiment, I watched visitors to One Tree Hill in Auckland and recorded their group sizes, dog or child presence, and activities.These findings help us better understand visitor preferences and habits.
+
+
+
+
